@@ -1,8 +1,17 @@
 import React from 'react'
+import User from './User'
 
 function About() {
+  
   return (
-   <h1>About saurabh..................!</h1>
+    
+  
+      <div className='user-container'>
+         <User ></User>
+     
+      </div>
+    
+ 
   )
 }
 

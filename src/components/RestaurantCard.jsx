@@ -6,7 +6,7 @@ const ReastaurantCard = (data) =>{
     return(
         <div className="res-card">
             <img  className="res-logo" src={ CDN_URL+resdata.info.cloudinaryImageId} />
-            <h3>{resdata.info.name}</h3>
+            <h3 style={{textDecoration:"none"}}>{resdata.info.name}</h3>
             <h4>{resdata.info.cuisines.join(",")}</h4>
             <h4>{resdata.info.avgRating}</h4>
           
