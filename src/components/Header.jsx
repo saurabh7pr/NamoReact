@@ -7,31 +7,32 @@ console.log("logo url is",LOGO_URL)
 const Header = () =>{
     const[btnText,setbtnText]=useState("Login")
     return(
-        <div className="header">
+        <div className="flex bg-pink-200 justify-between shadow-lg " >
         <div className="logo-container">
             <img
-            className="logo"
+            className="w-56"
             src={LOGO_URL}
             />
             
             
 
         </div>
-        <div className="nav-items">
-            <ul>
-                <li><Link to="/">Home</Link></li>
+        <div className="flex items-center">
+            <ul className="flex p-4 m-4 ">
+                <li className="px-5"><Link to="/">Home</Link></li>
 
 
-                <li> <Link to="/about"> About</Link>    </li>
+                <li className="px-5"> <Link to="/about"> About</Link>    </li>
 
-                <li> <Link to="/contact"> contact</Link>    </li>
+                <li className="px-5"> <Link to="/contact"> contact</Link>    </li>
+                <li className="px-5"> <Link to="/grocery"> Grocery</Link>    </li>
 
 
                 
 
                  
-                <li>Cart</li>
-                <button className="login-btn"
+                <li className="px-3">Cart</li>
+                <button className="px-5"
                  onClick={()=>{
                    if( btnText === "Login"? setbtnText("Logout") : setbtnText("Login") );
                  }}

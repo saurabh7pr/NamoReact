@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import ReastaurantCard from "./RestaurantCard";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 import { useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
@@ -30,6 +31,8 @@ const fetchData =  async() => {
      apiLive.map((res) => {
         console.log(res.info.name);
      })
+
+    
     
     
      
@@ -40,6 +43,13 @@ const fetchData =  async() => {
     
 
 };  
+
+const onlineStatus = useOnlineStatus();
+if(onlineStatus == false) {
+    return <div>
+        offline
+    </div>
+}
 if(listOfRes.length === 0)
 {
     return <Shimmer></Shimmer>
@@ -53,9 +63,10 @@ if(listOfRes.length === 0)
     return(
         <div className="body">
             <div className="filter">
-                <div className="search">
+                <div className=" m-4 p-4 ">
                     <div className="search-box">
                         <input type="text" value={searchText}
+                        className="border border-black border-solid"
                         onChange={(p)=>{
                             setSearchText(p.target.value);
 
