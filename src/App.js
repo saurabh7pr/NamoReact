@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import { RouterProvider, createBrowserRouter,Outlet} from "react-router-dom";
 import Grocery from "./components/Grocery";
 //import Error from "./components/Error";
+import Footer from "./components/Footer";
 
 const Grocery = lazy(()=>{
   import("./components/Grocery")
@@ -18,6 +19,7 @@ const AppLayout = () =>{
   return <div className="app">
       <Header></Header>
       <Outlet></Outlet>
+      <Footer></Footer>
       
 
     

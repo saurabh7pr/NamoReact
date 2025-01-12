@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import ReastaurantCard from "./RestaurantCard";
+import ReastaurantCard ,{withPromotedLabel}from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
@@ -8,6 +8,8 @@ import { useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () =>{
+
+    const PromotedRestaurants = withPromotedLabel(ReastaurantCard);
     const [listOfRes, setListOfRes] = useState([]);
     const[filteredRes,setFilteredRes] = useState([])
     const[apiLive,setapiLive] = useState([])
@@ -18,19 +20,15 @@ const Body = () =>{
     },[]);
   
 const fetchData =  async() => {
-   const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.8390936&lng=77.6471693&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+   const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
     //const data = await fetch("https://www.swiggy.com/dapi/restaurants/search/v3?lat=12.8392406&lng=77.6557144&str=Cafe%20Amudham&trackingId=null&submitAction=SUGGESTION&queryUniqueId=d52fe7a8-402d-c131-5505-9a38972eb2d7&metaData=%7B%22type%22%3A%22RESTAURANT%22%2C%22data%22%3A%7B%22parentId%22%3A396620%2C%22primaryRestaurantId%22%3A660675%2C%22cloudinaryId%22%3A%22384d020ad18d2752ddd119cb585024d7%22%2C%22brandId%22%3A396620%2C%22dishFamilyId%22%3A%22846586%22%2C%22enabled_flag%22%3A1%7D%2C%22businessCategory%22%3A%22SWIGGY_FOOD%22%2C%22displayLabel%22%3A%22Restaurant%22%7D");
      const apiData = await data.json();
-     console.log(apiData)
+    
 
    
      const apiLive=apiData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
       //const apiLive=apiData?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT.cards;
-     console.log(apiLive)
-
-     apiLive.map((res) => {
-        console.log(res.info.name);
-     })
+    
 
     
     
@@ -39,6 +37,7 @@ const fetchData =  async() => {
   
       setListOfRes(apiLive);
       setFilteredRes(apiLive);
+     console.log("data is",apiLive)
       
     
 
@@ -62,18 +61,22 @@ if(listOfRes.length === 0)
 
     return(
         <div className="body">
-            <div className="filter">
+            <div className="flex justify-center">
                 <div className=" m-4 p-4 ">
                     <div className="search-box">
                         <input type="text" value={searchText}
-                        className="border border-black border-solid"
+                        className="border border-green-300 border-solid p-2 rounded-lg"
                         onChange={(p)=>{
                             setSearchText(p.target.value);
 
                         }}>
 
                         </input>
-                        <button onClick={()=>{
+                        <button
+                        className="bg-green-400 m-4 px-4 py-2 rounded-lg"
+                        
+                        
+                        onClick={()=>{
                             const filteredRestaurant = listOfRes.filter(
                                 (res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase())
                             );
@@ -84,7 +87,8 @@ if(listOfRes.length === 0)
 
                     </div>
                 </div>
-               <button className="filter-btn"
+             <div className="flex items-center p-4 m-4">
+             <button className="py-2 px-4 bg-gray-400 rounded-lg"
                 onClick={() => {
                    const filteredList = listOfRes.filter(
                         (res) => res.info.avgRating > 4.3
@@ -98,12 +102,19 @@ if(listOfRes.length === 0)
                
                
                >Top Rated Restaurants</button>
+             </div>
               
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap justify-center">
                 {
                     filteredRes.map((restaurant) => (
-                      <Link to={"/restaurant/"+restaurant.info.id}>  <ReastaurantCard key={restaurant.info.id} resdata={restaurant}/></Link>
+                      <Link to={"/restaurant/"+restaurant.info.id}> 
+                      {
+                        restaurant.info.isOpen ?<PromotedRestaurants key={restaurant.info.id} resdata={restaurant}/>   : <ReastaurantCard key={restaurant.info.id} resdata={restaurant}/> 
+
+                      }
+                      
+                       </Link>
                         
                     ))
                 }

@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { LOGO_URL } from "../utils/constants"
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 console.log("logo url is",LOGO_URL)
 
 const Header = () =>{
     const[btnText,setbtnText]=useState("Login")
     return(
-        <div className="flex bg-pink-200 justify-between shadow-lg " >
+        <div className="flex bg-pink-200 justify-between shadow-lg h-30" >
         <div className="logo-container">
             <img
-            className="w-56"
-            src={LOGO_URL}
+            className="w-[110px] p-2 mx-8"
+            src={logo}
             />
             
             
