@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import ReactDOM from "react-dom/client";
 import { LOGO_URL } from "../utils/constants"
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import UserContext from "../utils/UserContext";
+
 console.log("logo url is",LOGO_URL)
 
 const Header = () =>{
+
     const[btnText,setbtnText]=useState("Login")
+
+
+    
+    const {loggedInUser} = useContext(UserContext);
+    console.log(loggedInUser)
+    
+
+
     return(
         <div className="flex bg-pink-200 justify-between shadow-lg h-30" >
         <div className="logo-container">
@@ -27,6 +38,8 @@ const Header = () =>{
 
                 <li className="px-5"> <Link to="/contact"> contact</Link>    </li>
                 <li className="px-5"> <Link to="/grocery"> Grocery</Link>    </li>
+              
+            
 
 
                 
@@ -39,6 +52,7 @@ const Header = () =>{
                  }}
 
                 >{btnText}</button>
+                  <li className="px-5 text-lg font-bold"> <Link to="/grocery"> {loggedInUser}</Link>    </li>
             </ul>
 
         </div>

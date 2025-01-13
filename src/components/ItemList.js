@@ -18,11 +18,13 @@ const ItemList = ({items}) => {
                     <p className="text-xs">{item.card.info.description}</p>
                 </div>
                 <div className="flex items-center justify-center m-2">
-                    <img 
+                    { item.card.info.imageId &&
+                        <img 
                         alt="NoImage"
                         src={CDN_URL+item.card.info.imageId} 
                         className="w-36 h-auto object-contain rounded-xl"
                     />
+                    }
                     <div className="absolute">
                         <button className="p-2 bg-white shadow-lg mt-16 w-16 rounded-lg text-green-700 font-bold">ADD+</button>
                     </div>
