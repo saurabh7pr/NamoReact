@@ -4,10 +4,12 @@ import { LOGO_URL } from "../utils/constants"
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 console.log("logo url is",LOGO_URL)
 
 const Header = () =>{
+
 
     const[btnText,setbtnText]=useState("Login")
 
@@ -15,6 +17,10 @@ const Header = () =>{
     
     const {loggedInUser} = useContext(UserContext);
     console.log(loggedInUser)
+
+
+    const cartItems = useSelector((store)=>store.cart.items)
+    console.log(cartItems)
     
 
 
@@ -45,7 +51,7 @@ const Header = () =>{
                 
 
                  
-                <li className="px-3">Cart</li>
+                <li className="px-3 font-bold text-lg"> <Link to={"/cart"}>  Cart({cartItems.length}) </Link> </li>
                 <button className="px-5"
                  onClick={()=>{
                    if( btnText === "Login"? setbtnText("Logout") : setbtnText("Login") );

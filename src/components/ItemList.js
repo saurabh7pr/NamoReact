@@ -1,8 +1,18 @@
 import React from 'react'
 import { CDN_URL } from '../utils/constants'
+import { useDispatch } from 'react-redux'
+import { addItem } from '../utils/cartSlice'
+import { toast } from "react-toastify";
 
 const ItemList = ({items}) => {
     console.log("items are",items)
+    const dispatch = useDispatch();
+    const handleAddItems = (item)=>{
+        dispatch(addItem(item))
+        toast.success("Items added to cart successfully!");
+
+    }
+    
   return (
     <div>
         {
@@ -26,7 +36,10 @@ const ItemList = ({items}) => {
                     />
                     }
                     <div className="absolute">
-                        <button className="p-2 bg-white shadow-lg mt-16 w-16 rounded-lg text-green-700 font-bold">ADD+</button>
+                        <button className="p-2 bg-white shadow-lg mt-16 w-16 rounded-lg text-green-700 font-bold"
+                         onClick={()=>handleAddItems(item)}
+                        >
+                            ADD+</button>
                     </div>
                 </div>
             </div>

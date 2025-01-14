@@ -10,6 +10,12 @@ import Grocery from "./components/Grocery";
 //import Error from "./components/Error";
 import Footer from "./components/Footer";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Grocery = lazy(()=>{
   import("./components/Grocery")
@@ -30,8 +36,17 @@ useEffect(()=>{
 
 
 
-  return <UserContext.Provider value={{loggedInUser: userName , setUserName}}>
+  return <Provider store={appStore}>
+     <UserContext.Provider value={{loggedInUser: userName , setUserName}}>
    <div className="app">
+   <ToastContainer
+            position="bottom-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            draggable
+          />
 
       <Header></Header>
       <Outlet></Outlet>
@@ -41,6 +56,8 @@ useEffect(()=>{
     
   </div>
   </UserContext.Provider>
+
+  </Provider>
 };
 
 const appRouter = createBrowserRouter([
@@ -66,6 +83,11 @@ const appRouter = createBrowserRouter([
       {
         path : "/restaurant/:resId",
         element: <RestaurantMenu/>
+    
+      },
+      {
+        path : "/cart",
+        element: <Cart/>
     
       },
       {
